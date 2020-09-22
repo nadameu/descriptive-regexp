@@ -35,3 +35,15 @@ export function withFlags(expr: Expr, flags?: string) {
 export function capture(expr: Expr) {
   return RegExp(`(${toSource(expr)})`);
 }
+
+export function test(text: string, expr: Expr) {
+  return fromExpr(expr).test(text);
+}
+
+export function match(text: string, expr: Expr) {
+  return text.match(fromExpr(expr));
+}
+
+export function matchAll(text: string, expr: Expr) {
+  return text.matchAll(fromExpr(expr));
+}
