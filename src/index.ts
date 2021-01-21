@@ -49,3 +49,7 @@ export function match(text: string, expr: Expr) {
 export function matchAll(text: string, expr: Expr) {
   return text.matchAll(fromExpr(expr));
 }
+
+export function exactly(expr: Expr) {
+  return RegExp(`^${toSource(expr)}$`);
+}

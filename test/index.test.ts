@@ -81,3 +81,7 @@ test('test', () => {
 test('matchAll', () => {
   expect(RE.matchAll('zoo', /o/g)).toEqual('zoo'.matchAll(/o/g));
 });
+
+test('exactly', () => {
+  expect(RE.exactly('abcd')).toEqual(/^abcd$/);
+});
