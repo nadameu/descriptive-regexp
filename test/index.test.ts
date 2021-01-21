@@ -39,7 +39,7 @@ describe('optional', () => {
 
 describe('capture', () => {
   it('creates capture groups', () => {
-    expect(RE.capture(RE.oneOf('a', 'b', 'c'))).toEqual(/((?:a|b|c))/);
+    expect(RE.capture(RE.oneOf('a', 'b', 'c'))).toEqual(/(a|b|c)/);
   });
 });
 

@@ -33,7 +33,9 @@ export function withFlags(expr: Expr, flags?: string) {
 }
 
 export function capture(expr: Expr) {
-  return RegExp(`(${toSource(expr)})`);
+  const src = toSource(expr);
+  const sanitized = src.match(/^\(\?:(.*)\)$/)?.[1] ?? src;
+  return RegExp(`(${sanitized})`);
 }
 
 export function test(text: string, expr: Expr) {
