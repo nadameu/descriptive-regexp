@@ -1,19 +1,18 @@
 {
-  "include": ["src", "types"],
   "compilerOptions": {
     "module": "esnext",
-    "lib": ["dom", "esnext"],
-    "importHelpers": true,
+    "target": "esnext",
     "declaration": true,
     "sourceMap": true,
-    "rootDir": "./src",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
     "moduleResolution": "node",
-    "jsx": "react",
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "composite": true
+  },
+  "include": ["src"]
 }

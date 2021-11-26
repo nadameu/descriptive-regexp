@@ -1,58 +1,59 @@
 import * as RE from '../src';
+import { expect } from 'chai';
 
 describe('literal', () => {
   it('keeps literal characters', () => {
-    expect(RE.literal('abcd')).toEqual(/abcd/);
+    expect(RE.literal('abcd')).to.deep.equal(/abcd/);
   });
   it('escapes special characters', () => {
-    expect(RE.literal('[')).toEqual(/\[/);
-    expect(RE.literal(']')).toEqual(/\]/);
-    expect(RE.literal('[abcd]')).toEqual(/\[abcd\]/);
-    expect(RE.literal('0..1')).toEqual(/0\.\.1/);
-    expect(RE.literal(' ^ ')).toEqual(/ \^ /);
-    expect(RE.literal('^ ')).toEqual(/\^ /);
-    expect(RE.literal('and/or')).toEqual(/and\/or/);
-    expect(RE.literal('?')).toEqual(/\?/);
+    expect(RE.literal('[')).to.deep.equal(/\[/);
+    expect(RE.literal(']')).to.deep.equal(/\]/);
+    expect(RE.literal('[abcd]')).to.deep.equal(/\[abcd\]/);
+    expect(RE.literal('0..1')).to.deep.equal(/0\.\.1/);
+    expect(RE.literal(' ^ ')).to.deep.equal(/ \^ /);
+    expect(RE.literal('^ ')).to.deep.equal(/\^ /);
+    expect(RE.literal('and/or')).to.deep.equal(/and\/or/);
+    expect(RE.literal('?')).to.deep.equal(/\?/);
   });
 });
 
 describe('concat', () => {
   it('concatenates expressions', () => {
-    expect(RE.concat(/^/, 'a.b/c', /(1|2)/)).toEqual(/^a\.b\/c(1|2)/);
+    expect(RE.concat(/^/, 'a.b/c', /(1|2)/)).to.deep.equal(/^a\.b\/c(1|2)/);
   });
 });
 
 describe('oneOf', () => {
   it('allows for multiple matches', () => {
-    expect(RE.oneOf(/^a/, 'b', /c/)).toEqual(/(?:^a|b|c)/);
+    expect(RE.oneOf(/^a/, 'b', /c/)).to.deep.equal(/(?:^a|b|c)/);
   });
 });
 
 describe('optional', () => {
   it('makes single characters optional', () => {
-    expect(RE.optional('a')).toEqual(/a?/);
+    expect(RE.optional('a')).to.deep.equal(/a?/);
   });
   it('makes expressions optional', () => {
-    expect(RE.optional('abc')).toEqual(/(?:abc)?/);
+    expect(RE.optional('abc')).to.deep.equal(/(?:abc)?/);
   });
 });
 
 describe('capture', () => {
   it('creates capture groups', () => {
-    expect(RE.capture(RE.oneOf('a', 'b', 'c'))).toEqual(/(a|b|c)/);
+    expect(RE.capture(RE.oneOf('a', 'b', 'c'))).to.deep.equal(/(a|b|c)/);
   });
 });
 
 describe('withFlags', () => {
   it('adds flags to the original expression', () => {
-    expect(RE.withFlags(/abc/, 'i')).toEqual(/abc/i);
+    expect(RE.withFlags(/abc/, 'i')).to.deep.equal(/abc/i);
   });
   it('removes all flags before adding new ones', () => {
-    expect(RE.withFlags(/abc/i, 'g')).toEqual(/abc/g);
+    expect(RE.withFlags(/abc/i, 'g')).to.deep.equal(/abc/g);
   });
 });
 
-test('Complex RegExp', () => {
+it('Complex RegExp', () => {
   const re = RE.concat(
     /^/,
     'https://',
@@ -64,24 +65,24 @@ test('Complex RegExp', () => {
     RE.oneOf('create', 'update'),
     '&'
   );
-  expect(re).toEqual(
+  expect(re).to.deep.equal(
     /^https:\/\/(?:www2?\.example\.com\/path|some\.other\.domain\.tld\/different\x2dpath)\/controller\.php\?action=(?:create|update)&/
   );
 });
 
-test('match', () => {
-  expect(RE.match('abcd', /bc*d/)).toEqual('abcd'.match(/bc*d/));
+it('match', () => {
+  expect(RE.match('abcd', /bc*d/)).to.deep.equal('abcd'.match(/bc*d/));
 });
 
-test('test', () => {
-  expect(RE.test('abcd', /ghij/)).toBe(false);
-  expect(RE.test('abcd', 'c')).toBe(true);
+it('test', () => {
+  expect(RE.test('abcd', /ghij/)).to.be.false;
+  expect(RE.test('abcd', 'c')).to.be.true;
 });
 
-test('matchAll', () => {
-  expect(RE.matchAll('zoo', /o/g)).toEqual('zoo'.matchAll(/o/g));
+it('matchAll', () => {
+  expect(RE.matchAll('zoo', /o/g)).to.deep.equal('zoo'.matchAll(/o/g));
 });
 
-test('exactly', () => {
-  expect(RE.exactly('abcd')).toEqual(/^abcd$/);
+it('exactly', () => {
+  expect(RE.exactly('abcd')).to.deep.equal(/^abcd$/);
 });
